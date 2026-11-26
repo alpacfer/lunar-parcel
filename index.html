@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#0f2a4a">
-<title>Lunar parcel record MT-08124N-236047E - Selenographic Registry</title>
+<title>Lunar parcel record MT-08124N-236047E-B00B5 - Selenographic Registry</title>
 <style>
 /* Plain public-service layout: system fonts, flat colours, square corners, full-width blocks.
    Single light theme on purpose. */
@@ -172,7 +172,7 @@ footer details div { padding-top: 8px; font-size: 14px; }
 <nav class="width crumbs" aria-label="Breadcrumb"><a href="#">Home</a><span>&rsaquo;</span><a href="#">Lunar parcels</a><span>&rsaquo;</span><a href="#">Mare Tranquillitatis</a></nav>
 
 <main class="width" id="main">
-  <span class="caption">Parcel MT-08124N-236047E</span>
+  <span class="caption">Parcel MT-08124N-236047E-B00B5</span>
   <h1>Lunar parcel record</h1>
 
   <div class="inset" id="verify">
@@ -180,7 +180,7 @@ footer details div { padding-top: 8px; font-size: 14px; }
     <p class="small">Register entry: Volume IX, folio 197</p>
   </div>
 
-  <p class="lead">This parcel is 1 square metre of the lunar surface in Mare Tranquillitatis, 5.8 km from the Apollo 11 landing site.</p>
+  <p class="lead">This parcel is 1 square centimetre of the lunar surface in Mare Tranquillitatis, 5.8 km from the Apollo 11 landing site.</p>
 
   <h2>Listen to the survey recording</h2>
   <p>The record includes a 0:32 audio recording. It starts with original Apollo 11 air-to-ground audio from 20 July 1969, followed by the surface recording for this parcel.</p>
@@ -193,7 +193,7 @@ footer details div { padding-top: 8px; font-size: 14px; }
 
   <div class="banner" id="alert" role="alert" hidden>
     <div class="hd">Important</div>
-    <div class="bd"><b>Lunar activity detected at this parcel</b><p>Your square metre appears to be very, very happy.</p></div>
+    <div class="bd"><b>Lunar activity detected at this parcel</b><p>Your square centimetre appears to be very, very happy.</p></div>
   </div>
 
   <h2>Survey image</h2>
@@ -206,11 +206,11 @@ footer details div { padding-top: 8px; font-size: 14px; }
   <dl>
     <div><dt>Status</dt><dd><span class="tag">Registered</span></dd></div>
     <div><dt>Certificate number</dt><dd>SR-2026-82092</dd></div>
-    <div><dt>Parcel reference</dt><dd>MT-08124N-236047E</dd></div>
+    <div><dt>Parcel reference</dt><dd>MT-08124N-236047E-B00B5</dd></div>
     <div><dt>Register entry</dt><dd>Volume IX, folio 197</dd></div>
     <div><dt>Region</dt><dd>Mare Tranquillitatis<small>Lunar near side</small></dd></div>
     <div><dt>Centroid</dt><dd>0.812400&deg; N, 23.604700&deg; E<small>0&deg;48&prime;44.64&Prime; N, 23&deg;36&prime;16.92&Prime; E</small></dd></div>
-    <div><dt>Area</dt><dd>1.000 square metres<small>1.000 m by 1.000 m</small></dd></div>
+    <div><dt>Area</dt><dd>1 square centimetre<small>1.000 cm by 1.000 cm</small></dd></div>
     <div><dt>Distance to Tranquility Base</dt><dd>5.79 km</dd></div>
     <div><dt>Date registered</dt><dd>26 November 2026</dd></div>
   </dl>
@@ -279,7 +279,7 @@ footer details div { padding-top: 8px; font-size: 14px; }
   snd.addEventListener('loadedmetadata', function () { document.getElementById('dur').textContent = fmt(snd.duration); });
   snd.addEventListener('timeupdate', function () {
     if (snd.currentTime >= MOAN_AT) document.getElementById('alert').hidden = false;
-    document.getElementById('now').textContent = snd.currentTime < MOAN_AT ? 'Apollo 11 air-to-ground, 20 July 1969' : 'Surface recording, parcel MT-08124N-236047E';
+    document.getElementById('now').textContent = snd.currentTime < MOAN_AT ? 'Apollo 11 air-to-ground, 20 July 1969' : 'Surface recording, parcel MT-08124N-236047E-B00B5';
     document.getElementById('cur').textContent = fmt(snd.currentTime);
     document.getElementById('prog').style.width = (snd.duration ? 100 * snd.currentTime / snd.duration : 0) + '%';
   });
