@@ -73,6 +73,8 @@ p { margin: 0 0 18px; max-width: 640px; }
 .btn:hover { background: #005a30; }
 .btn:active { transform: translateY(2px); box-shadow: none; }
 .btn svg { width: 18px; height: 18px; fill: currentColor; }
+.btn.busy { background: #505a5f; box-shadow: 0 2px 0 #2b3034; cursor: default; }
+.btn.busy:active { transform: none; box-shadow: 0 2px 0 #2b3034; }
 .player { max-width: 640px; margin: 18px 0 8px; }
 .track { height: 8px; background: var(--light); border: 1px solid var(--border); }
 .track i { display: block; height: 100%; width: 0; background: var(--text); }
@@ -117,8 +119,6 @@ footer .own svg { width: 100%; height: 100%; display: block; }
 footer details summary { cursor: pointer; color: var(--text); text-decoration: underline; width: max-content; }
 footer details div { padding-top: 8px; font-size: 14px; }
 
-body.quake main { animation: quake .08s linear infinite; }
-@keyframes quake { 0% { transform: translate(0,0) rotate(0); } 25% { transform: translate(-6px,2px) rotate(-.8deg); } 50% { transform: translate(5px,-3px) rotate(.7deg); } 75% { transform: translate(-3px,-2px) rotate(-.4deg); } 100% { transform: translate(4px,3px) rotate(.5deg); } }
 
 @media (max-width: 640px) {
   body { font-size: 16px; line-height: 1.25; }
@@ -137,7 +137,6 @@ body.quake main { animation: quake .08s linear infinite; }
   dd small { font-size: 14px; }
   footer { font-size: 14px; }
 }
-@media (prefers-reduced-motion: reduce) { body.quake main { animation: none; } }
 </style>
 </head>
 <body>
@@ -305,27 +304,25 @@ body.quake main { animation: quake .08s linear infinite; }
 <script>
 (function () {
   var snd = document.getElementById('snd'), MOAN_AT = 5.55;
-  var icon = document.getElementById('icon').firstChild, label = document.getElementById('plabel');
-  var PLAY = 'M7 4.5v15l13-7.5z', PAUSE = 'M6 4h4.5v16H6zM13.5 4H18v16h-4.5z';
+  var label = document.getElementById('plabel');
   function fmt(t) { t = Math.max(0, Math.round(t || 0)); return Math.floor(t / 60) + ':' + ('0' + t % 60).slice(-2); }
   setTimeout(function () {
     var v = document.getElementById('verify'), t = document.getElementById('vtext');
     v.classList.add('ok'); t.classList.remove('checking');
     t.innerHTML = '<strong>Certificate SR-2026-82092 is valid.</strong> This parcel is registered.';
   }, 1200);
-  document.getElementById('play').addEventListener('click', function () {
-    if (!snd.paused) { snd.pause(); return; }
+  var btn = document.getElementById('play');
+  btn.addEventListener('click', function () {
+    if (!snd.paused) return;  // no pausing once it has started
     snd.volume = 1;
     if (snd.ended) snd.currentTime = 0;
     var p = snd.play(); if (p && p.catch) p.catch(function () {});
   });
-  snd.addEventListener('play', function () { icon.setAttribute('d', PAUSE); label.textContent = 'Pause recording'; });
-  snd.addEventListener('pause', function () { icon.setAttribute('d', PLAY); label.textContent = snd.ended ? 'Play again' : 'Resume recording'; document.body.classList.remove('quake'); });
+  snd.addEventListener('play', function () { btn.classList.add('busy'); btn.setAttribute('aria-disabled', 'true'); label.textContent = 'Playing recording'; });
+  snd.addEventListener('ended', function () { btn.classList.remove('busy'); btn.removeAttribute('aria-disabled'); label.textContent = 'Play again'; });
   snd.addEventListener('loadedmetadata', function () { document.getElementById('dur').textContent = fmt(snd.duration); });
   snd.addEventListener('timeupdate', function () {
-    var moaning = !snd.paused && snd.currentTime >= MOAN_AT;
-    document.body.classList.toggle('quake', moaning);
-    if (moaning) document.getElementById('alert').hidden = false;
+    if (snd.currentTime >= MOAN_AT) document.getElementById('alert').hidden = false;
     document.getElementById('now').textContent = snd.currentTime < MOAN_AT ? 'Apollo 11 air-to-ground, 20 July 1969' : 'Surface recording, parcel MT-08124N-236047E';
     document.getElementById('cur').textContent = fmt(snd.currentTime);
     document.getElementById('prog').style.width = (snd.duration ? 100 * snd.currentTime / snd.duration : 0) + '%';
